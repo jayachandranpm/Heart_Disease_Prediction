@@ -102,10 +102,19 @@ if user_df is not None:
     prediction = loaded_rf_model.predict(user_df)
     prediction_proba = loaded_rf_model.predict_proba(user_df)[:, 1]
 
-     # Display prediction results in a table
+    # Display prediction results in a table
     st.subheader('Prediction Results')
     results_df = pd.DataFrame({
         'Prediction': ["Positive" if prediction[0] == 1 else "Negative"],
         'Probability': [f'{prediction_proba[0]:.4f}']
     })
     st.table(results_df)
+
+    # Display a note about model limitations
+    model_limitations_note = """
+    ## Important Note
+    The model has been trained on a limited dataset of 180 records. As a result, its accuracy may vary, and it can make mistakes.
+    Please consider this information when interpreting the predictions.
+    """
+    st.markdown(model_limitations_note, unsafe_allow_html=True)
+
